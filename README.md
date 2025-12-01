@@ -60,16 +60,14 @@ pip install textual psutil
 python main.py
 ```
 
+#Estructura del directorio
+
+```
 ProyectoSOs_2026-1/
-
-├─ Proyecto/
-
-    ├─ Monitor.py         # Lógica de recolección, alertas y logging
-    
-    ├─ main.py            # UI Textual y ciclado de actualización
-    
-├─ README.md
-
-├─ .gitignore
+├── README.md
+└── Proyecto/
+    ├── Monitor.py         # Lógica de recolección, alertas y logging
+    ├── main.py            # UI Textual y ciclado de actualización 
+```
 
 └─ LICENSE
