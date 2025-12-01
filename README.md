@@ -15,6 +15,12 @@ Suárez Ortiz Joshua Daniel
 
 Python 3.x
 
+# Tecnologías
+- Python 3.x
+- `psutil` — acceso a métricas del sistema
+- `textual` — TUI basada en Rich
+- `virtualenv` / `venv`
+
 # Como ejecutar nuestro proyecto:
 
  **Clonar el repositorio:**
