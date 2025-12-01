@@ -59,3 +59,11 @@ pip install textual psutil
 ```bash
 python main.py
 ```
+
+ProyectoSOs_2026-1/
+├─ Proyecto/
+    ├─ Monitor.py         # Lógica de recolección, alertas y logging
+    ├─ main.py            # UI Textual y ciclado de actualización
+├─ README.md
+├─ .gitignore
+└─ LICENSE
