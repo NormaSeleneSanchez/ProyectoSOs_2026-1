@@ -10,3 +10,21 @@ Salazar Gonzalez Pedro Yamil
 Sánchez Cruz Norma Selene
 
 Suárez Ortiz Joshua Daniel
+
+
+Modo de ejecución: 
+# Crear un entorno virtual 
+python -m venv myenv 
+
+# Activar el entorno virtual 
+
+# en Windows 
+myenv\Scripts\activate 
+
+# en macOS y Linux 
+source myenv/bin/activate
+
+#instalar
+pip install textual psutil
+
+python main.py
