@@ -33,12 +33,13 @@ python -m venv myenv
 ```
 
 **Activar el entorno virtual** 
-en Windows 
+
+*en Windows* 
 ```bash
 myenv\Scripts\activate
 ```
 
-en macOS y Linux 
+*en macOS y Linux* 
 ```bash
 source myenv/bin/activate
 ```
