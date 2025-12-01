@@ -1,3 +1,15 @@
+"""
+Aplicacion para monitorear estadosticas del sistema usando Textual.
+Incluye pestanias para mostrar informacion de:
+- Sistema
+- CPU
+- Memoria
+- Disco
+- Red
+- Temperaturas
+- Procesos
+"""
+
 from textual.app import App, ComposeResult
 from textual.widgets import Header, TabbedContent, TabPane, RichLog
 from contextlib import redirect_stdout
@@ -17,12 +29,18 @@ from Monitor import (
 )
 
 class Monitor(App):
-
+    """Aplicacion grafica basada en Textual para visualizar metricas del sistema."""
+    
     CSS = """
     RichLog { border: solid green; }
     """
 
+    # ---------------------------------------------------------
+    #  Construccion de la interfaz
+    # ---------------------------------------------------------
     def compose(self) -> ComposeResult:
+        """Genera la estructura de pestañas de la interfaz."""
+        
         yield Header(show_clock=True)
 
         with TabbedContent():
@@ -48,8 +66,15 @@ class Monitor(App):
             with TabPane("Procesos", id="tab_proc"):
                 yield RichLog(id="log_proc", markup=True)
 
-    
+    # ---------------------------------------------------------
+    #  Utilidades
+    # ---------------------------------------------------------
     def cap(self, func, *args):
+        """
+        Captura la salida estandar de una funcion y la devuelve como string.
+        Evita que Textual crashee por prints directos.
+        """
+        
         f = io.StringIO()
         try:
             with redirect_stdout(f):
@@ -58,42 +83,52 @@ class Monitor(App):
             print(f"[red]ERROR:[/red] {e}", file=f)
         return f.getvalue()    
 
-
+    # ---------------------------------------------------------
+    #  Inicializacion
+    # ---------------------------------------------------------
     def on_mount(self):
-        self.last_net = psutil.net_io_counters()
-        self.set_interval(1.0, self.actualizar_todo)
+        """Se ejecuta al iniciar la app: guarda referencias y programa la actualización."""
+
+        self.logs = {
+            "sistema": self.query_one("#log_sistema", RichLog),
+            "cpu": self.query_one("#log_cpu", RichLog),
+            "mem": self.query_one("#log_mem", RichLog),
+            "disco": self.query_one("#log_disco", RichLog),
+            "red": self.query_one("#log_red", RichLog),
+            "temp": self.query_one("#log_temp", RichLog),
+            "proc": self.query_one("#log_proc", RichLog),
+        }
+        
+        self.last_net = psutil.net_io_counters() #Para medir trafico de red alta 
+        self.set_interval(1.0, self.actualizar_todo) #Actualizar cada segundo
 
 
+    # ---------------------------------------------------------
+    #  Actualizacion en tiempo real
+    # ---------------------------------------------------------
     def actualizar_todo(self):
 
-        log = self.query_one("#log_sistema", RichLog)
-        log.clear()
-        log.write(self.cap(show_system_info))
+        """Actualiza todos los paneles con los datos mas recientes del sistema."""
 
-        log = self.query_one("#log_cpu", RichLog)
-        log.clear()
-        log.write(self.cap(show_cpu))
+        tareas = [
+            ("sistema", show_system_info),
+            ("cpu", show_cpu),
+            ("mem", show_memory),
+            ("disco", show_disk),
+            ("red", lambda: show_network(self.last_net)),
+            ("temp", show_temperatures),
+            ("proc", show_processes),
+        ]
 
-        log = self.query_one("#log_mem", RichLog)
-        log.clear()
-        log.write(self.cap(show_memory))
+        for nombre_log, funcion in tareas:
+            log_widget = self.logs[nombre_log]
+            log_widget.clear()
+            log_widget.write(self.cap(funcion))
 
-        log = self.query_one("#log_disco", RichLog)
-        log.clear()
-        log.write(self.cap(show_disk))
+        self.last_net = psutil.net_io_counters() # Actualizar trafico de red para siguiente lectura
 
-        log = self.query_one("#log_red", RichLog)
-        log.clear()
-        log.write(self.cap(show_network, self.last_net))
-        self.last_net = psutil.net_io_counters()
-
-        log = self.query_one("#log_temp", RichLog)
-        log.clear()
-        log.write(self.cap(show_temperatures))
-
-        log = self.query_one("#log_proc", RichLog)
-        log.clear()
-        log.write(self.cap(show_processes))
-        
+# ---------------------------------------------------------
+#  Ejecucion principal
+# ---------------------------------------------------------
 if __name__ == "__main__":
     Monitor().run()
