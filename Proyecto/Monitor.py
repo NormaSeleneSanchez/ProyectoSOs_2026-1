@@ -11,7 +11,7 @@ def bytes_to_gb(b):
     return b / (1024 ** 3)
 
 def show_system_info():
-    print("=== INFORMACIÓN DEL SISTEMA ===")
+    print("=== INFORMACION DEL SISTEMA ===")
     print(f"Sistema operativo: {platform.system()} {platform.release()}")
     print(f"Versión: {platform.version()}")
     print(f"Arquitectura: {platform.machine()}")

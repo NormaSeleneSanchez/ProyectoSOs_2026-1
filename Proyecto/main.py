@@ -1,6 +1,6 @@
 """
-Aplicación para monitorear estadísticas del sistema usando Textual.
-Incluye pestañas para mostrar información de:
+Aplicacion para monitorear estadosticas del sistema usando Textual.
+Incluye pestanias para mostrar informacion de:
 - Sistema
 - CPU
 - Memoria
@@ -9,6 +9,7 @@ Incluye pestañas para mostrar información de:
 - Temperaturas
 - Procesos
 """
+
 from textual.app import App, ComposeResult
 from textual.widgets import Header, TabbedContent, TabPane, RichLog
 from contextlib import redirect_stdout
@@ -28,14 +29,14 @@ from Monitor import (
 )
 
 class Monitor(App):
-    """Aplicación gráfica basada en Textual para visualizar métricas del sistema."""
+    """Aplicacion grafica basada en Textual para visualizar metricas del sistema."""
     
     CSS = """
     RichLog { border: solid green; }
     """
 
     # ---------------------------------------------------------
-    #  Construcción de la interfaz
+    #  Construccion de la interfaz
     # ---------------------------------------------------------
     def compose(self) -> ComposeResult:
         """Genera la estructura de pestañas de la interfaz."""
@@ -69,8 +70,8 @@ class Monitor(App):
     #  Utilidades
     # ---------------------------------------------------------
     def cap(self, func, *args):
-         """
-        Captura la salida estándar de una función y la devuelve como string.
+        """
+        Captura la salida estandar de una funcion y la devuelve como string.
         Evita que Textual crashee por prints directos.
         """
         
@@ -83,7 +84,7 @@ class Monitor(App):
         return f.getvalue()    
 
     # ---------------------------------------------------------
-    #  Inicialización
+    #  Inicializacion
     # ---------------------------------------------------------
     def on_mount(self):
         """Se ejecuta al iniciar la app: guarda referencias y programa la actualización."""
@@ -98,16 +99,16 @@ class Monitor(App):
             "proc": self.query_one("#log_proc", RichLog),
         }
         
-        self.last_net = psutil.net_io_counters() #Para medir tráfico de red alta 
+        self.last_net = psutil.net_io_counters() #Para medir trafico de red alta 
         self.set_interval(1.0, self.actualizar_todo) #Actualizar cada segundo
 
 
     # ---------------------------------------------------------
-    #  Actualización en tiempo real
+    #  Actualizacion en tiempo real
     # ---------------------------------------------------------
     def actualizar_todo(self):
 
-         """Actualiza todos los paneles con los datos más recientes del sistema."""
+        """Actualiza todos los paneles con los datos mas recientes del sistema."""
 
         tareas = [
             ("sistema", show_system_info),
@@ -124,10 +125,10 @@ class Monitor(App):
             log_widget.clear()
             log_widget.write(self.cap(funcion))
 
-        self.last_net = psutil.net_io_counters() # Actualizar tráfico de red para siguiente lectura
+        self.last_net = psutil.net_io_counters() # Actualizar trafico de red para siguiente lectura
 
 # ---------------------------------------------------------
-#  Ejecución principal
+#  Ejecucion principal
 # ---------------------------------------------------------
 if __name__ == "__main__":
     Monitor().run()
