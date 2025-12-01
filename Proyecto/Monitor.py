@@ -12,34 +12,6 @@ import platform
 import psutil
 from datetime import datetime, timedelta
 
-# ================================
-# CONFIGURACIÓN DE ALERTAS
-# ================================
-CPU_ALERT = 90          # %
-RAM_ALERT = 85          # %
-DISK_ALERT = 90         # %
-NETWORK_ALERT = 10_000_000  # bytes/seg (opcional)
-
-# ================================
-# LOGGING
-# ================================
-LOG_DIR = "logs"
-
-def ensure_log_dir():
-    """Crea la carpeta logs/ si no existe."""
-    if not os.path.exists(LOG_DIR):
-        os.makedirs(LOG_DIR)
-
-def write_log(data: str):
-    """Escribe una línea al archivo de log actual."""
-    ensure_log_dir()
-    filename = datetime.now().strftime("logs/monitor_%Y-%m-%d.txt")
-    with open(filename, "a", encoding="utf-8") as f:
-        f.write(data + "\n")
-
-# ================================
-# UTILIDADES
-# ================================
 def clear():
     """
     Limpia la consola.
