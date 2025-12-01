@@ -60,7 +60,7 @@ pip install textual psutil
 python main.py
 ```
 
-#Estructura del directorio
+# Estructura del directorio
 
 ```
 ProyectoSOs_2026-1/
