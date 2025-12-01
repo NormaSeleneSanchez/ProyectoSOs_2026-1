@@ -96,4 +96,4 @@ class Monitor(App):
         log.write(self.cap(show_processes))
         
 if __name__ == "__main__":
-    Monitor.run()
+    Monitor().run()
