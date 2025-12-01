@@ -69,5 +69,3 @@ ProyectoSOs_2026-1/
     ├── Monitor.py         # Lógica de recolección, alertas y logging
     ├── main.py            # UI Textual y ciclado de actualización 
 ```
-
-└─ LICENSE
