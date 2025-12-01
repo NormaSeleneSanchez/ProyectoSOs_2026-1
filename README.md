@@ -23,7 +23,7 @@ git clone https://github.com/NormaSeleneSanchez/ProyectoSOs_2026-1.git
 
 **Navegar en la carpeta del proyecto:**
 ```bash
-    cd ProyectoSOs_2026-1
+cd ProyectoSOs_2026-1
 ```
 
 **Crear un entorno virtual** 
