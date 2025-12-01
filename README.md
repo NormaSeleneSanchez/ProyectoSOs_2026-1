@@ -11,10 +11,11 @@ Sánchez Cruz Norma Selene
 
 Suárez Ortiz Joshua Daniel
 
-#Requisitos previos:
+# Requisitos previos:
+
 Python 3.x
 
-#Como ejecutar nuestro proyecto:
+# Como ejecutar nuestro proyecto:
 
  **Clonar el repositorio:**
 ```bash
