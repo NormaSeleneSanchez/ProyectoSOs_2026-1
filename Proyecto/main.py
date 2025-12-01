@@ -59,5 +59,41 @@ class Monitor(App):
         return f.getvalue()    
 
 
+    def on_mount(self):
+        self.last_net = psutil.net_io_counters()
+        self.set_interval(1.0, self.actualizar_todo)
+
+
+    def actualizar_todo(self):
+
+        log = self.query_one("#log_sistema", RichLog)
+        log.clear()
+        log.write(self.cap(show_system_info))
+
+        log = self.query_one("#log_cpu", RichLog)
+        log.clear()
+        log.write(self.cap(show_cpu))
+
+        log = self.query_one("#log_mem", RichLog)
+        log.clear()
+        log.write(self.cap(show_memory))
+
+        log = self.query_one("#log_disco", RichLog)
+        log.clear()
+        log.write(self.cap(show_disk))
+
+        log = self.query_one("#log_red", RichLog)
+        log.clear()
+        log.write(self.cap(show_network, self.last_net))
+        self.last_net = psutil.net_io_counters()
+
+        log = self.query_one("#log_temp", RichLog)
+        log.clear()
+        log.write(self.cap(show_temperatures))
+
+        log = self.query_one("#log_proc", RichLog)
+        log.clear()
+        log.write(self.cap(show_processes))
+        
 if __name__ == "__main__":
     Monitor.run()
