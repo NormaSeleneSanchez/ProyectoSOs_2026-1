@@ -6,7 +6,7 @@ import psutil
 
 
 # Asi podremos usar lo que ya funcionaba en terminal
-from Monitos import (
+from Monitor import (
     show_system_info,
     show_cpu,
     show_memory,
