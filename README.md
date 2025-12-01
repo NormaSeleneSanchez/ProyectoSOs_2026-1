@@ -65,6 +65,8 @@ python main.py
 ```
 ProyectoSOs_2026-1/
 ├── README.md
+├── Monitor-de-Recursos-del-Sistema.pdf    #Presentación
+├── ProyectoFinal_SO    #Informe del proyecto 
 └── Proyecto/
     ├── Monitor.py         # Lógica de recolección, alertas y logging
     ├── main.py            # UI Textual y ciclado de actualización 
